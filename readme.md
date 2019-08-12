@@ -8,7 +8,7 @@
 
 2. Install dependencies `yarn install` in root folder of this repository
 
-3. run locally with watch mode `yarn start`
+3. run locally with watch mode `yarn dev`
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br>
