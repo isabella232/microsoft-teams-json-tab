@@ -20,14 +20,14 @@
   },
   "icons": {
     "outline": "icon-outline.png",
-    "color": "icon-color.PNG"
+    "color": "icon-color.png"
   },
   "accentColor": "#abcdef",
   "staticTabs": [
     {
       "entityId": "json-tab",
       "name": "json tab",
-      "contentUrl": "https://{jsonTabUrl}?theme={theme}&frameContext=content&initialRun=true",
+      "contentUrl": "https://610e6b5a.ngrok.io?theme={theme}&frameContext=content&initialRun=true",
       "scopes": [
         "personal"
       ]
@@ -35,7 +35,7 @@
   ],
   "configurableTabs": [
     {
-      "configurationUrl": "https://{jsonTabUrl}?theme={theme}&frameContext=settings",
+      "configurationUrl": "https://610e6b5a.ngrok.io?theme={theme}&frameContext=settings",
       "canUpdateConfiguration": false,
       "scopes": [
         "team"
