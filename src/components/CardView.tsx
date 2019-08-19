@@ -6,10 +6,12 @@ import { stripHTML, launchTaskModule } from '../utils/utils';
 import '../css/App.css';
 import { Overflow } from './Overflow';
 import { CustomImage } from './CustomImage';
+import { ThemeContext } from '../utils/themeContext';
 
 export const CardView: React.FC<IItemListProps> = (props: IItemListProps): JSX.Element => {
   // CONSTANTS
   const minimumCardWidth = 278; //px
+  const currentTheme = React.useContext(ThemeContext);
 
   // HELPER FUNCTION
   const calculateColumns = (width: number) => {
@@ -57,6 +59,7 @@ export const CardView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
           borderRadius: '3px',
           boxShadow: '0px 2px 4px -0.75px rgba(0,0,0,0.1)',
           position: 'relative',
+          border: `2px solid ${currentTheme.border}`,
         }}
         onClick={(): void => launchTaskModule(item)}
         onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) => {
