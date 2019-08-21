@@ -11,6 +11,8 @@ enum viewType {
 interface ISearchBarProps {
   onSearch: (query: string) => void;
   onViewChange: (view: viewType) => void;
+  onEnter: () => void;
+  onFocus: () => void;
   customClass?: string;
 }
 
@@ -41,8 +43,13 @@ export const SearchBar: React.FC<ISearchBarProps> = (props: ISearchBarProps): JS
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === 'Enter') {
-      props.onSearch(Query);
+      props.onEnter();
     }
+  };
+
+  const handleOnFocus = () => {
+    console.log('focus');
+    props.onFocus();
   };
 
   return (
@@ -64,6 +71,7 @@ export const SearchBar: React.FC<ISearchBarProps> = (props: ISearchBarProps): JS
         styles={{ margin: '0px 0px 16px 0px' }}
         onChange={handleOnChange}
         onKeyPress={handleKeyPress}
+        onFocus={handleOnFocus}
       />
     </Flex>
   );
@@ -71,8 +79,16 @@ export const SearchBar: React.FC<ISearchBarProps> = (props: ISearchBarProps): JS
 
 export const SearchBarWrapper = createComponent({
   displayName: 'SearchBarWrapper',
-  render: ({ stardust, onSearch, onViewChange }) => {
+  render: ({ stardust, onSearch, onViewChange, onFocus, onEnter }) => {
     const { classes } = stardust;
-    return <SearchBar customClass={classes.root} onViewChange={onViewChange} onSearch={onSearch} />;
+    return (
+      <SearchBar
+        customClass={classes.root}
+        onViewChange={onViewChange}
+        onSearch={onSearch}
+        onEnter={onEnter}
+        onFocus={onFocus}
+      />
+    );
   },
 });

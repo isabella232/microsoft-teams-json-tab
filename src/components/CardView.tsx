@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Grid, Segment, Image, Text, gridBehavior } from '@stardust-ui/react';
+import { Flex, Grid, Segment, Image, Text, gridBehavior, Ref } from '@stardust-ui/react';
 import { IItemListProps } from './ListView';
 import { ICard } from '../api/api.interface';
 import { stripHTML, launchTaskModule } from '../utils/utils';
@@ -46,6 +46,20 @@ export const CardView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
       window.removeEventListener('resize', updateColumn);
     };
   }, [Columns]);
+
+  // Ref for first grid item
+  const gridRef = React.createRef<any>();
+
+  React.useEffect(() => {
+    //If focus is true set focus to first element. Ignore otherwise
+    if (props.focusFirst) {
+      let firstElem = gridRef.current && (gridRef.current as HTMLElement).firstChild;
+
+      if (firstElem) {
+        (firstElem as HTMLElement).focus();
+      }
+    }
+  });
 
   // ICARD PROCESSOR
   const processItem = (item: ICard): JSX.Element => {
@@ -135,7 +149,9 @@ export const CardView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
   // RENDER
   return (
     <div style={{ margin: '0 0 0 8px', height: `${Height - 50}px`, overflow: 'scroll' }}>
-      <Grid columns={Columns} accessibility={gridBehavior} content={props.itemList.map(processItem)} />
+      <Ref innerRef={gridRef}>
+        <Grid columns={Columns} accessibility={gridBehavior} content={props.itemList.map(processItem)} />
+      </Ref>
     </div>
   );
 };

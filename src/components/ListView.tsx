@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Flex, Text } from '@stardust-ui/react';
+import { List, Flex, Text, Ref } from '@stardust-ui/react';
 import { ICard } from '../api/api.interface';
 import { launchTaskModule, stripHTML } from '../utils/utils';
 import { Overflow } from './Overflow';
@@ -7,6 +7,7 @@ import { CustomImage } from './CustomImage';
 
 export interface IItemListProps {
   itemList: ICard[];
+  focusFirst: boolean;
 }
 
 export interface IProcessedItem {
@@ -31,6 +32,20 @@ export const ListView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
 
   // Key count to ensure unique keys for every item
   let keyCount = 0;
+
+  // Ref for first list item
+  const listRef = React.createRef<any>();
+
+  React.useEffect(() => {
+    //If focus is true set focus to first element. Ignore otherwise
+    if (props.focusFirst) {
+      let firstElem = listRef.current && (listRef.current as HTMLElement).firstChild;
+
+      if (firstElem) {
+        (firstElem as HTMLElement).focus();
+      }
+    }
+  });
 
   // Function to translate items from IPreviewCard to List.Item format
   const processItem = (item: ICard): IProcessedItem => {
@@ -91,5 +106,9 @@ export const ListView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
   const outList = props.itemList.map(processItem);
 
   // Render selectable list
-  return <List selectable items={outList} styles={{ height: `${Height - 48}px`, overflow: 'scroll' }} />;
+  return (
+    <Ref innerRef={listRef}>
+      <List selectable items={outList} styles={{ height: `${Height - 48}px`, overflow: 'scroll' }} />
+    </Ref>
+  );
 };
