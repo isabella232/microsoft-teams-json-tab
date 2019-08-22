@@ -48,7 +48,6 @@ export const SearchBar: React.FC<ISearchBarProps> = (props: ISearchBarProps): JS
   };
 
   const handleOnFocus = () => {
-    console.log('focus');
     props.onFocus();
   };
 

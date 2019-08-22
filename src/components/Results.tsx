@@ -14,11 +14,6 @@ enum viewOption {
 }
 
 export const Results: React.FC<IResultState> = (props: IResultState): JSX.Element => {
-  // React.useEffect(() => {
-  //   //If focus is true set focus to first element. Ignore otherwise
-  //   alert('focus: ' + props.focusFirst);
-  // });
-
   return (
     <div>
       {props.viewOption === viewOption.List ? (

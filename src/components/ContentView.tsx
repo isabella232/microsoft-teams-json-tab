@@ -76,6 +76,7 @@ export const ContentView: React.FC<IContentViewProps> = (props: IContentViewProp
   const handleViewChange = (viewOption: string): void => {
     if (viewOption) {
       setViewOption(viewOption);
+      setFocus(false);
     }
   };
 
