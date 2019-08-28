@@ -36,6 +36,7 @@ export const ContentView: React.FC<IContentViewProps> = (props: IContentViewProp
   const [ErrorMessage, setErrorMessage] = React.useState('');
   const [AuthData, setAuthData] = React.useState({ url: '', title: 'Sign in' });
   const [Query, setQuery] = React.useState({ query: '', commandId: getCommandId(window.location.href) });
+  const [FocusFirstResult, setFocusFirstResult] = React.useState(false);
 
   const onError = (error: string): void => {
     setAppState(AppStateEnum.Error);
@@ -64,9 +65,18 @@ export const ContentView: React.FC<IContentViewProps> = (props: IContentViewProp
     }
   };
 
+  const handleFocusOnFirstElement = (): void => {
+    setFocusFirstResult(true);
+  };
+
+  const handleResetFocus = (): void => {
+    setFocusFirstResult(false);
+  };
+
   const handleViewChange = (viewOption: string): void => {
     if (viewOption) {
       setViewOption(viewOption);
+      setFocusFirstResult(false);
     }
   };
 
@@ -92,7 +102,7 @@ export const ContentView: React.FC<IContentViewProps> = (props: IContentViewProp
     }
   }, [props.onThemeChange]);
 
-  let view = <Results results={Result} viewOption={ViewOption} />;
+  let view = <Results results={Result} viewOption={ViewOption} focusFirst={FocusFirstResult} />;
   switch (AppState) {
     case 'Loading':
       view = <LoadIcon isLoading={true} />;
@@ -109,7 +119,12 @@ export const ContentView: React.FC<IContentViewProps> = (props: IContentViewProp
   }
   return (
     <div className={props.customClass}>
-      <SearchBarWrapper onSearch={handleSearch} onViewChange={handleViewChange} />
+      <SearchBarWrapper
+        onSearch={handleSearch}
+        onViewChange={handleViewChange}
+        onEnter={handleFocusOnFirstElement}
+        onFocus={handleResetFocus}
+      />
       {view}
     </div>
   );
