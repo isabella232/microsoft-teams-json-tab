@@ -61,10 +61,10 @@ const getCustomTheme = () => ({
     },
     ListItem: {
       root: ({ variables }: any) => ({
-        backgroundColor: variables.backgroundColor,
         ':hover': {
           backgroundColor: variables.hoverBackgroundColor,
           color: variables.hoverTextColor,
+          '& .ui-menu': { color: variables.hoverTextColor },
         },
         ':active': {
           backgroundColor: variables.activeBackgroundColor,
@@ -86,6 +86,7 @@ const getCustomTheme = () => ({
         ':hover': {
           backgroundColor: variables.hoverBackgroundColor,
           color: variables.hoverTextColor,
+          '& .ui-menu': { color: variables.hoverTextColor },
         },
         ':active': {
           backgroundColor: variables.activeBackgroundColor,
