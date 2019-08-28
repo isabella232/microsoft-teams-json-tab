@@ -51,9 +51,9 @@ export const CardView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
   const gridRef = React.createRef<any>();
 
   React.useEffect(() => {
-    //If focus is true set focus to first element. Ignore otherwise
+    // If focus is true set focus to first element. Ignore otherwise
     if (props.focusFirst) {
-      let firstElem = gridRef.current && (gridRef.current as HTMLElement).firstChild;
+      const firstElem = gridRef.current && (gridRef.current as HTMLElement).firstChild;
 
       if (firstElem) {
         (firstElem as HTMLElement).focus();

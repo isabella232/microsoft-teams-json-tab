@@ -36,7 +36,7 @@ export const ContentView: React.FC<IContentViewProps> = (props: IContentViewProp
   const [ErrorMessage, setErrorMessage] = React.useState('');
   const [AuthData, setAuthData] = React.useState({ url: '', title: 'Sign in' });
   const [Query, setQuery] = React.useState({ query: '', commandId: getCommandId(window.location.href) });
-  const [Focus, setFocus] = React.useState(false);
+  const [FocusFirstResult, setFocusFirstResult] = React.useState(false);
 
   const onError = (error: string): void => {
     setAppState(AppStateEnum.Error);
@@ -66,17 +66,17 @@ export const ContentView: React.FC<IContentViewProps> = (props: IContentViewProp
   };
 
   const handleFocusOnFirstElement = (): void => {
-    setFocus(true);
+    setFocusFirstResult(true);
   };
 
   const handleResetFocus = (): void => {
-    setFocus(false);
+    setFocusFirstResult(false);
   };
 
   const handleViewChange = (viewOption: string): void => {
     if (viewOption) {
       setViewOption(viewOption);
-      setFocus(false);
+      setFocusFirstResult(false);
     }
   };
 
@@ -102,7 +102,7 @@ export const ContentView: React.FC<IContentViewProps> = (props: IContentViewProp
     }
   }, [props.onThemeChange]);
 
-  let view = <Results results={Result} viewOption={ViewOption} focusFirst={Focus} />;
+  let view = <Results results={Result} viewOption={ViewOption} focusFirst={FocusFirstResult} />;
   switch (AppState) {
     case 'Loading':
       view = <LoadIcon isLoading={true} />;
