@@ -14,6 +14,7 @@ export interface IProcessedItem {
   key: number;
   content: JSX.Element;
   onClick: () => void;
+  onFocus: (event: React.FocusEvent<Element>) => void;
 }
 
 export const ListView: React.FC<IItemListProps> = (props: IItemListProps): JSX.Element => {
@@ -46,6 +47,24 @@ export const ListView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
       }
     }
   });
+
+  const handleContextMenu = (e: MouseEvent) => {
+    e.preventDefault();
+    const focusedElem = e.currentTarget as HTMLElement;
+    focusedElem.removeEventListener('contextmenu', handleContextMenu);
+    // Menu button contains the only a tag on a listitem
+    focusedElem.getElementsByTagName('a')[0].click();
+  };
+
+  const handleLostFocus = (e: FocusEvent) => {
+    (e.currentTarget as HTMLElement).removeEventListener('contextmenu', handleContextMenu);
+    (e.currentTarget as HTMLElement).removeEventListener('blur', handleLostFocus);
+  };
+
+  const itemOnFocus = (e: React.FocusEvent) => {
+    (e.currentTarget as HTMLElement).addEventListener('contextmenu', handleContextMenu);
+    (e.currentTarget as HTMLElement).addEventListener('blur', handleLostFocus);
+  };
 
   // Function to translate items from IPreviewCard to List.Item format
   const processItem = (item: ICard): IProcessedItem => {
@@ -90,13 +109,14 @@ export const ListView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
           ) : null}
           {item.content.actions ? (
             <Flex.Item shrink={0}>
-              <Overflow card={item} title="More Options" />
+              <Overflow card={item} title="More Options" openMenu={false} />
             </Flex.Item>
           ) : null}
         </Flex>
       ),
       styles: { margin: '2px 2px 0 0' },
       onClick: (): void => launchTaskModule(item),
+      onFocus: (event: React.FocusEvent<Element>): void => itemOnFocus(event),
     };
     return out;
   };
