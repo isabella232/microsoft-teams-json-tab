@@ -9,7 +9,7 @@ export const FlexItem: React.FC<ICard> = (props: ICard): JSX.Element => {
   const keyDown = (e: React.KeyboardEvent): void => {
     // Use Enter key to launch task module
     if (e.key === 'Enter') {
-      launchTaskModule(props);
+      launchTaskModule(e, props);
     }
     // Use Escape key to exit Card View container and tab to Search Bar and toggle button
     else if (e.key === 'Escape') {
@@ -19,7 +19,7 @@ export const FlexItem: React.FC<ICard> = (props: ICard): JSX.Element => {
   };
 
   return (
-    <div tabIndex={0} className="CardBox" onClick={(): void => launchTaskModule(props)} onKeyDown={keyDown}>
+    <div tabIndex={0} className="CardBox" onClick={(event): void => launchTaskModule(event, props)} onKeyDown={keyDown}>
       <Layout
         vertical
         start={

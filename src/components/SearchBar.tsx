@@ -71,6 +71,8 @@ export const SearchBar: React.FC<ISearchBarProps> = (props: ISearchBarProps): JS
         onChange={handleOnChange}
         onKeyPress={handleKeyPress}
         onFocus={handleOnFocus}
+        aria-label="search results"
+        aria-controls="list-view grid-view"
       />
     </Flex>
   );
