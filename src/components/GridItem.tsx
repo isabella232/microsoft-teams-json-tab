@@ -22,11 +22,12 @@ export const GridItem: React.FC<IGridItemProps> = (props: IGridItemProps): JSX.E
     setMenuOpen(true);
   };
 
-  const handleLostFocus = (e: React.FocusEvent) => {
+  const onBlur = (e: React.FocusEvent) => {
     (e.currentTarget as HTMLElement).removeEventListener('contextmenu', handleContextMenu);
+    setMenuOpen(false);
   };
 
-  const handleOnFocus = (e: React.FocusEvent) => {
+  const onFocus = (e: React.FocusEvent) => {
     (e.currentTarget as HTMLElement).addEventListener('contextmenu', handleContextMenu);
   };
 
@@ -48,8 +49,8 @@ export const GridItem: React.FC<IGridItemProps> = (props: IGridItemProps): JSX.E
           launchTaskModule(e, props.item);
         }
       }}
-      onFocus={event => handleOnFocus(event)}
-      onBlur={event => handleLostFocus(event)}
+      onFocus={event => onFocus(event)}
+      onBlur={event => onBlur(event)}
     >
       {props.item.content.actions ? (
         <Overflow

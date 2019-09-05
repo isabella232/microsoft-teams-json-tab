@@ -14,7 +14,6 @@ export const Overflow: React.FC<OverflowProps> = (props: OverflowProps): JSX.Ele
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
-    // If focus is true set focus to first element. Ignore otherwise
     if (props.openMenu) {
       setMenuOpen(true);
     }
