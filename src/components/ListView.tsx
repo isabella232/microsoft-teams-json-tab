@@ -56,14 +56,14 @@ export const ListView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
     focusedElem.getElementsByTagName('a')[0].click();
   };
 
-  const handleLostFocus = (e: FocusEvent) => {
+  const onBlur = (e: FocusEvent) => {
     (e.currentTarget as HTMLElement).removeEventListener('contextmenu', handleContextMenu);
-    (e.currentTarget as HTMLElement).removeEventListener('blur', handleLostFocus);
+    (e.currentTarget as HTMLElement).removeEventListener('blur', onBlur);
   };
 
-  const itemOnFocus = (e: React.FocusEvent) => {
+  const onFocus = (e: React.FocusEvent) => {
     (e.currentTarget as HTMLElement).addEventListener('contextmenu', handleContextMenu);
-    (e.currentTarget as HTMLElement).addEventListener('blur', handleLostFocus);
+    (e.currentTarget as HTMLElement).addEventListener('blur', onBlur);
   };
 
   // Function to translate items from IPreviewCard to List.Item format
@@ -116,7 +116,7 @@ export const ListView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
       ),
       styles: { margin: '2px 2px 0 0' },
       onClick: (): void => launchTaskModule(item),
-      onFocus: (event: React.FocusEvent<Element>): void => itemOnFocus(event),
+      onFocus: (event: React.FocusEvent<Element>): void => onFocus(event),
     };
     return out;
   };
