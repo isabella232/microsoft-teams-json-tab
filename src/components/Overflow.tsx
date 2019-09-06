@@ -7,10 +7,17 @@ export interface OverflowProps {
   card: ICard;
   styles?: object;
   title?: string;
+  openMenu: boolean;
 }
 
 export const Overflow: React.FC<OverflowProps> = (props: OverflowProps): JSX.Element => {
   const [menuOpen, setMenuOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    if (props.openMenu) {
+      setMenuOpen(true);
+    }
+  });
 
   const displayActions = (action: OverflowAction) => ({
     key: action.id,
