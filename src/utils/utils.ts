@@ -3,13 +3,15 @@ import { ICard, OverflowAction } from '../api/api.interface';
 import * as queryString from 'query-string';
 import { ISubmitAction, IOpenUrlAction, IShowCardAction } from 'adaptivecards/lib/schema';
 import { removeUnsupportedActions } from '../api/api';
+import { SyntheticEvent } from 'react';
 
 // gets frame context from url
-export const submitHandler = (err: string, result: string): void => {
+export const submitHandler = (err: string, result: string, target: HTMLElement): void => {
   console.log(`Err value: ${err}, result value : ${result}`);
+  target.focus();
 };
 
-export const launchTaskModule = (card: ICard): void => {
+export const launchTaskModule = (event: SyntheticEvent, card: ICard): void => {
   // Only open task module if card is an Adaptive Card
   if (card.content.type && card.content.type === 'AdaptiveCard') {
     const taskInfo: microsoftTeams.TaskInfo = {
@@ -20,7 +22,8 @@ export const launchTaskModule = (card: ICard): void => {
       card: card.content,
       completionBotId: card.botId,
     };
-    microsoftTeams.tasks.startTask(taskInfo, submitHandler);
+    const elem = event.currentTarget as HTMLElement;
+    microsoftTeams.tasks.startTask(taskInfo, (err: string, result: string) => submitHandler(err, result, elem));
   } else {
     alert(`Could not load data, card type is not supported.`);
   }

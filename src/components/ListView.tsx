@@ -13,7 +13,7 @@ export interface IItemListProps {
 export interface IProcessedItem {
   key: number;
   content: JSX.Element;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent) => void;
   onFocus: (event: React.FocusEvent<Element>) => void;
 }
 
@@ -115,7 +115,7 @@ export const ListView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
         </Flex>
       ),
       styles: { margin: '2px 2px 0 0' },
-      onClick: (): void => launchTaskModule(item),
+      onClick: (event: React.MouseEvent): void => launchTaskModule(event, item),
       onFocus: (event: React.FocusEvent<Element>): void => onFocus(event),
     };
     return out;
@@ -128,7 +128,7 @@ export const ListView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
   // Render selectable list
   return (
     <Ref innerRef={listRef}>
-      <List selectable items={outList} styles={{ height: `${Height - 48}px`, overflow: 'scroll' }} />
+      <List id="list-view" selectable items={outList} styles={{ height: `${Height - 48}px`, overflow: 'scroll' }} />
     </Ref>
   );
 };

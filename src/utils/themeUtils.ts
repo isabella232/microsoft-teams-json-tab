@@ -73,6 +73,7 @@ const getCustomTheme = () => ({
         ':focus': {
           backgroundColor: variables.hoverBackgroundColor,
           color: variables.hoverTextColor,
+          '& .ui-menu': { color: variables.hoverTextColor },
         },
       }),
     },
@@ -95,6 +96,7 @@ const getCustomTheme = () => ({
         ':focus': {
           backgroundColor: variables.hoverBackgroundColor,
           color: variables.hoverTextColor,
+          '& .ui-menu': { color: variables.hoverTextColor },
         },
       }),
     },

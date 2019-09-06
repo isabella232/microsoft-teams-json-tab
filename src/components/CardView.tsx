@@ -66,7 +66,7 @@ export const CardView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
   return (
     <div style={{ margin: '0 0 0 8px', height: `${Height - 50}px`, overflow: 'scroll' }}>
       <Ref innerRef={gridRef}>
-        <Grid columns={Columns} accessibility={gridBehavior} content={props.itemList.map(processItem)} />
+        <Grid id="grid-view" columns={Columns} accessibility={gridBehavior} content={props.itemList.map(processItem)} />
       </Ref>
     </div>
   );
