@@ -115,7 +115,7 @@ export const ListView: React.FC<IItemListProps> = (props: IItemListProps): JSX.E
         </Flex>
       ),
       styles: { margin: '2px 2px 0 0' },
-      onClick: (event: React.MouseEvent): void => launchTaskModule(event, item),
+      onClick: (event: React.MouseEvent): void => launchTaskModule(event.currentTarget as HTMLElement, item),
       onFocus: (event: React.FocusEvent<Element>): void => onFocus(event),
     };
     return out;

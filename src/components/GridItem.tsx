@@ -43,10 +43,10 @@ export const GridItem: React.FC<IGridItemProps> = (props: IGridItemProps): JSX.E
         position: 'relative',
         border: `2px solid ${currentTheme.border}`,
       }}
-      onClick={(e: React.MouseEvent): void => launchTaskModule(e, props.item)}
+      onClick={(e: React.MouseEvent): void => launchTaskModule(e.currentTarget as HTMLElement, props.item)}
       onKeyPress={(e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
-          launchTaskModule(e, props.item);
+          launchTaskModule(e.currentTarget, props.item);
         }
       }}
       onFocus={event => onFocus(event)}
