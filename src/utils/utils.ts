@@ -8,10 +8,12 @@ import { SyntheticEvent } from 'react';
 // gets frame context from url
 export const submitHandler = (err: string, result: string, target: HTMLElement): void => {
   console.log(`Err value: ${err}, result value : ${result}`);
-  target.focus();
+  if (target) {
+    target.focus();
+  }
 };
 
-export const launchTaskModule = (event: SyntheticEvent, card: ICard): void => {
+export const launchTaskModule = (element: HTMLElement, card: ICard): void => {
   // Only open task module if card is an Adaptive Card
   if (card.content.type && card.content.type === 'AdaptiveCard') {
     const taskInfo: microsoftTeams.TaskInfo = {
@@ -22,8 +24,8 @@ export const launchTaskModule = (event: SyntheticEvent, card: ICard): void => {
       card: card.content,
       completionBotId: card.botId,
     };
-    const elem = event.currentTarget as HTMLElement;
-    microsoftTeams.tasks.startTask(taskInfo, (err: string, result: string) => submitHandler(err, result, elem));
+    //const elem = event.currentTarget as HTMLElement;
+    microsoftTeams.tasks.startTask(taskInfo, (err: string, result: string) => submitHandler(err, result, element));
   } else {
     alert(`Could not load data, card type is not supported.`);
   }
